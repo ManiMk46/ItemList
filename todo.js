@@ -27,7 +27,7 @@ function RenderItem(todo_item){
 
 function renderList(){
     for (let i = 0; i < todo_list.length; i++){
-        const title = todo_list[i].title;
+        const item = todo_list[i];
         RenderItem(item);
     }
 }
