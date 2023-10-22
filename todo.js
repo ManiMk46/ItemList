@@ -1,6 +1,7 @@
 const Save_btn = document.querySelector("#save-btn");
 const title_input = document.querySelector("#title");
 const list = document.querySelector(".list");
+const DeleteAll = document.querySelector(".delete-all");
 let todo_list = [];
 
 
@@ -15,17 +16,31 @@ function RenderItem(todo_item){
 
         const span = document.createElement("span");
         span.textContent = todo_item.title;
+
+        const DeleteBtn = document.createElement("button");
+        DeleteBtn.classList.add("delete");
+        DeleteBtn.textContent = "Delete";
+
         
         item.appendChild(checkbox);
         item.appendChild(span);
+        item.appendChild(DeleteBtn);
         list.appendChild(item);
 
         checkbox.addEventListener("click", () => {
-            toggleStatus(todo_item.title)
+            toggleStatus(todo_item.title);
+        })
+
+        DeleteBtn.addEventListener("click", () => {
+            remove(todo_item.title);
         })
 }
 
 function renderList(){
+    /* remove items */
+    list.innerHTML = "";
+
+    /* Render Items */
     for (let i = 0; i < todo_list.length; i++){
         const item = todo_list[i];
         RenderItem(item);
@@ -65,8 +80,18 @@ function additem(item){
         status: item.status ,
     }
     todo_list.push(next_item);
+}
 
+function remove(title){
+    for(let i =0; i < todo_list.length; i++){
+        const list_item = todo_list[i];
+        
+        if(list_item.title === title){
+            todo_list.splice(i,1);
+        }
+    } 
     syncStorage();
+    renderList();
 }
 
 // Run Your App
@@ -81,13 +106,29 @@ function OnAdditem(){
                 status : false,
             }
             additem(item);
+            syncStorage();
             RenderItem(item);
             clearInput();
         }
 }
 
+function OnDeleteAll(){
+  const new_items = todo_list.filter((item) => {
+    if(item.status === true){
+        return false;
+    } else {
+        return true
+    }
+  });
+
+  todo_list = new_items;
+  syncStorage();
+  renderList();
+}
+
 function EventBtn(){
     Save_btn.addEventListener("click", OnAdditem);
+    DeleteAll.addEventListener("click", OnDeleteAll);
 }
 
 function init(){
