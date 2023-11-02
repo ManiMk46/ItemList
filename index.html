@@ -9,15 +9,20 @@
 <body>
     <div class="container">
           <div class="form">
-                  <input type="text" placeholder="Write Your Item-Name..." id="title">
-                  <button id="save-btn">Save</button>
-                  <select class="checkbox">
-                    <option value="done">Done</option>
-                    <option value="todo">Todo</option>
-                    <option value="all">All</option>
-                  </select>
-                  <input type="search" placeholder="Search" id="search">
-                  <button class="delete-all">Delete all</button>
+                  <form class="EnterBtn">
+                    <input type="text" placeholder="Write Your Item-Name..." id="title">
+                    <button id="save-btn">Save</button>
+                    <button class="delete-all">Delete all</button>
+                </form>
+                  <form role="search">
+                    <input name="Search" type="text" placeholder="Search" id="search">
+                    <button class="SearchBtn">Search</button>
+                    <select class="checkbox">
+                        <option value="done">Done</option>
+                        <option value="todo">Todo</option>
+                        <option value="all">All</option>
+                      </select>
+                  </form>
           </div>
           <div class="list">
            <!--  <div class="item">
@@ -32,6 +37,6 @@
             </div> -->
           </div> 
     </div>
-    <script type="text/javascript" src="./todo.js"></script>
+    <script type="module" src="./todo.js"></script>
 </body>
 </html>
